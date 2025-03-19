@@ -3,7 +3,7 @@ LIC_FILES_CHKSUM = "file://COPYING;md5=6bc538ed5bd9a7fc9398086aedcd7e46"
 LINUX_VERSION = "5.10.52"
 SUMMARY = "Linux kernel for MarS Board"
 
-SRC_URI = "git://github.com/nxp-qoriq/linux;protocol=https;nobranch=1" \
+SRC_URI = "git://github.com/nxp-qoriq/linux;protocol=https;branch=lf-6.6.3-1.0.0" \
            file://defconfig \
            file://ls1046agtwy.dts \
 "
