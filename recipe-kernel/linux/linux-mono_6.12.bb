@@ -2,6 +2,9 @@ SUMMARY = "Linux kernel for Mono Gateway board"
 LICENSE = "GPL-2.0-only"
 LIC_FILES_CHKSUM = "file://COPYING;md5=6bc538ed5bd9a7fc9398086aedcd7e46"
 
+PROVIDES += "virtual/kernel"
+COMPATIBLE_MACHINE = "gateway-dk"
+
 inherit kernel
 
 DEPENDS += "bison-native flex-native bc-native"
