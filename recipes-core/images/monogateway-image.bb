@@ -14,4 +14,4 @@ PACKAGE_EXCLUDE:remove = "alsa-utils busybox pulseaudio"
 IMAGE_INSTALL:append = " alsa-utils busybox pulseaudio"
 
 # Dev
-IMAGE_INSTALL:append = " nano build-essentials"
+IMAGE_INSTALL:append = " nano"
