@@ -133,14 +133,14 @@ IMAGE_INSTALL:append = " \
     wireless-regdb-static \
     "
 
-IMAGE_LINGUAS = ""
-
-# Explicitly exclude unwanted packages
-PACKAGE_EXCLUDE = "\
+# Audio (alsa, pulse)
+IMAGE_INSTALL:append = " \
     alsa-utils \
     busybox \
     pulseaudio \
     "
+
+IMAGE_LINGUAS = ""
 
 # Generate ext4 filesystem for eMMC
 IMAGE_FSTYPES = "ext4"
