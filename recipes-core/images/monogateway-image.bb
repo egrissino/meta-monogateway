@@ -2,11 +2,10 @@ SUMMARY = "Gateway Image"
 DESCRIPTION = "A development and tinkering image"
 LICENSE = "MIT"
 
-inherit core-image extrausers
+inherit mono-sdk-image
 
-# Audio (alsa, pulse)
-IMAGE_INSTALL:append = " \
-    alsa-utils \
-    busybox \
-    pulseaudio \
-    "
+# Utils
+IMAGE_INSTALL:append = "openssh screen apt python3 python3-pip python3-venv"
+
+# Audio
+IMAGE_INSTALL:append = "alsa-utils busybox pulseaudio"
