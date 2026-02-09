@@ -14,4 +14,6 @@ PACKAGE_EXCLUDE:remove = "alsa-utils busybox pulseaudio"
 IMAGE_INSTALL:append = " alsa-utils busybox pulseaudio"
 
 # Dev
-IMAGE_INSTALL:append = " nano"
+IMAGE_INSTALL:append = " nano iputils"
+
+RDEPENDS:${PN}:remove = "inetutils-ping6"
