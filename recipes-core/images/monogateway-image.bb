@@ -16,4 +16,7 @@ IMAGE_INSTALL:append = " alsa-utils busybox pulseaudio"
 # Dev
 IMAGE_INSTALL:append = " nano iputils"
 
+IMAGE_INSTALL:remove = "dnf rpm"
+PACKAGE_EXCLUDE += "dnf rpm"
+
 RDEPENDS:${PN}:remove = "inetutils-ping6"
