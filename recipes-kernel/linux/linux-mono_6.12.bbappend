@@ -1,3 +1,3 @@
 SRC_URI:remove = "file://defconfig"
-FILESEXTRAPATHS:prepend := "${THISDIR}/files:"
-SRC_URI:append = "file://defconfig"
+FILESEXTRAPATHS:prepend := "${THISDIR}:"
+SRC_URI:append = "file://gatewayos/defconfig"
