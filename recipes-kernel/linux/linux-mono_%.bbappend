@@ -1,5 +1,3 @@
-
-
 FILESEXTRAPATHS:prepend := "${THISDIR}/files:"
-SRC_URI += " file://usb-audio.cfg"
-KERNEL_CONFIG_FRAGMENTS += "usb-audio.cfg"
+SRC_URI:remove = "file://defconfig"
+SRC_URI:append = " file://defconfig"
