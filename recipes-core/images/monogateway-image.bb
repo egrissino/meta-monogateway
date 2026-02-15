@@ -1,13 +1,19 @@
-SUMMARY = "Gateway Image"
-DESCRIPTION = "A development and tinkering image"
+SUMMARY = "Mono SDK Development Image"
+DESCRIPTION = "A minimal systemd-based root filesystem image for console/UART operation"
 LICENSE = "MIT"
 
-require recipes-core/images/mono-sdk-image.bb
+inherit core-image extrausers
+
+# Empty password for development/SDK use
+EXTRA_USERS_PARAMS = "usermod -p '' root;"
+
+# Enable package management for runtime updates
+IMAGE_FEATURES = "package-management"
 
 IMAGE_FEATURES:append = " allow-empty-password allow-root-login empty-root-password"
 
 # Utils
-IMAGE_INSTALL:append = "openssh screen apt python3 python3-pip python3-venv"
+IMAGE_INSTALL:append = " openssh screen apt python3 python3-pip python3-venv"
 
 # Audio
 PACKAGE_EXCLUDE:remove = "alsa-utils busybox pulseaudio"
@@ -16,7 +22,146 @@ IMAGE_INSTALL:append = " alsa-utils busybox pulseaudio"
 # Dev
 IMAGE_INSTALL:append = " nano iputils"
 
-IMAGE_INSTALL:remove = "dnf rpm"
-PACKAGE_EXCLUDE += "dnf rpm"
+# Disable initramfs bundling (defined in machine.conf)
+INITRAMFS_IMAGE_BUNDLE = "0"
 
-RDEPENDS:${PN}:remove = "inetutils-ping6"
+# Essential system packages
+CORE_IMAGE_BASE_INSTALL = "\
+    base-files \
+    base-passwd \
+    coreutils \
+    dbus \
+    init-ifupdown \
+    initscripts \
+    kernel-base \
+    kernel-modules \
+    netbase \
+    os-release \
+    shadow \
+    systemd \
+    systemd-compat-units \
+    util-linux \
+    "
+
+# Base system utilities
+IMAGE_INSTALL:append = " \
+    findutils \
+    glibc-utils \
+    grep \
+    gzip \
+    less \
+    sed \
+    tar \
+    wget \
+    which \
+    "
+
+# System monitoring and debugging tools
+IMAGE_INSTALL:append = " \
+    htop \
+    procps \
+    psmisc \
+    stressapptest \
+    systemd-analyze \
+    "
+
+# Development and debugging tools
+IMAGE_INSTALL:append = " \
+    strace \
+    gdb \
+    gdbserver \
+    ltrace \
+    tcpdump \
+    file \
+    binutils \
+    "
+
+# Filesystem and storage utilities
+IMAGE_INSTALL:append = " \
+    e2fsprogs \
+    e2fsprogs-resize2fs \
+    "
+
+# Kernel and device management
+IMAGE_INSTALL:append = " \
+    kernel-devicetree \
+    kmod \
+    udev \
+    modprobe-config \
+    mtd-utils \
+    "
+
+# System services
+IMAGE_INSTALL:append = " \
+    systemd-serialgetty \
+    systemd-preset-mono \
+    packagegroup-core-ssh-openssh \
+    "
+
+# Hardware monitoring and control
+IMAGE_INSTALL:append = " \
+    fancontrol \
+    sfp-led \
+    status-led \
+    lp5812-driver \
+    "
+
+# NXP/Freescale specific packages
+IMAGE_INSTALL:append = " \
+    fmc \
+    fmlib \
+    packagegroup-fsl-networking-core \
+    packagegroup-fsl-tools-extended \
+    "
+
+# ASK (Application Software Kit) fast path offloading
+IMAGE_INSTALL:append = " \
+    cdx \
+    auto-bridge \
+    fci \
+    libfci \
+    cmm \
+    dpa-app \
+    libcli \
+    ppp \
+    rp-pppoe \
+    rp-pppoe-relay \
+    "
+
+# Networking (Ethernet, WiFi, Bluetooth)
+IMAGE_INSTALL:append = " \
+    conntrack-tools \
+    iptables \
+    dhcpcd \
+    dnsmasq \
+    iperf3 \
+    hostapd \
+    wpa-supplicant \
+    iw \
+    bluez5 \
+    kernel-module-nxp-wlan \
+    firmware-nxp-wifi-nxp9098-pcie \
+    firmware-nxp-wifi-nxpiw612-sdio \
+    wireless-regdb-static \
+    "
+
+IMAGE_LINGUAS = ""
+
+# Generate ext4 filesystem for eMMC
+IMAGE_FSTYPES = "ext4"
+EXTRA_IMAGECMD:ext4 = "-F -i 4096 -J size=64"
+
+SYSTEMD_DEFAULT_TARGET = "multi-user.target"
+
+# Note: dhcpcd/dnsmasq disabled via bbappends, systemd-networkd/resolved via preset
+
+sdk_image_postprocess() {
+    # Setup hugepages for DPDK
+    mkdir -p ${IMAGE_ROOTFS}/mnt/hugepages
+    echo "# Hugepages for DPDK" >> ${IMAGE_ROOTFS}${sysconfdir}/fstab
+    echo "hugetlbfs /mnt/hugepages hugetlbfs defaults 0 0" >> ${IMAGE_ROOTFS}${sysconfdir}/fstab
+}
+
+ROOTFS_POSTPROCESS_COMMAND += "sdk_image_postprocess; "
+SYSTEMD_AUTO_ENABLE:pn-openssh-sshd = "enable"
+hostname:pn-base-files = "sdk"
