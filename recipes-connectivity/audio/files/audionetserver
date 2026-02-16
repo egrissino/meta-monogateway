@@ -14,10 +14,12 @@ isHostConnected () {
     jack_lsp | grep -q "^${HOST}"
 }
 
-sleep 10
+sleep 5
 
 while ! (isHostConnected); do
     sleep 1
 done
 
-source ./audionetconnect
+sleep 5
+
+audionetconnect
