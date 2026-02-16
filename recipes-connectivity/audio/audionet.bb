@@ -1,6 +1,5 @@
 SUMMARY = "Audionet: A configuration for Jack"
-LICENSE = "BSD-3-Clause"
-LIC_FILES_CHKSUM = "file://COPYING;md5=b3b732d1349633a53e69356607fd2d6c"
+LICENSE = "MIT"
 
 DEPENDS += "jack"
 
