@@ -11,7 +11,7 @@ SRC_URI = "file://jackserver.sh \
            "
 
 S = "${WORKDIR}/sources-unpack"
-RDEPENDS_${PN} += "bash"
+RDEPENDS:${PN} += "bash"
 
 do_install() {
     install -d ${D}${bindir}
