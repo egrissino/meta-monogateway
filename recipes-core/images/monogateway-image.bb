@@ -21,6 +21,9 @@ IMAGE_INSTALL:append = " alsa-utils busybox pulseaudio"
 IMAGE_INSTALL:append = " libjack jack-server jack-utils"
 IMAGE_INSTALL:append = " containerd docker docker-compose"
 
+# Audio bridge application scripts
+IMAGE_INSTALL:append = " audionet"
+
 # Dev
 IMAGE_INSTALL:append = " nano iputils"
 
