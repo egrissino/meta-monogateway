@@ -4,6 +4,8 @@ LIC_FILES_CHKSUM = "file://COPYING.MIT;md5=3da9cfbcb788c80a0384361b4de20420"
 
 DEPENDS += "jack"
 
+S = "${WORKDIR}/sources-unpack"
+
 SRC_URI = "file://jackserver.sh \
            file://jackconnect.sh \
            file://jackclient.sh \
