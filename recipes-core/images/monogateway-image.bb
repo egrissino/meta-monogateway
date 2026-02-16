@@ -18,7 +18,7 @@ IMAGE_INSTALL:append = " openssh screen apt python3 python3-pip python3-venv"
 # Audio
 PACKAGE_EXCLUDE:remove = "alsa-utils busybox pulseaudio"
 IMAGE_INSTALL:append = " alsa-utils busybox pulseaudio"
-IMAGE_INSTALL:append = " jack libjack jack-server"
+IMAGE_INSTALL:append = " libjack jack-server example-tools"
 
 # Dev
 IMAGE_INSTALL:append = " nano iputils"
