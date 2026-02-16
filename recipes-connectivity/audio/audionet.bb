@@ -4,14 +4,14 @@ LIC_FILES_CHKSUM = "file://COPYING;md5=b3b732d1349633a53e69356607fd2d6c"
 
 DEPENDS += "jack"
 
-SRC_URI = "file://files/jackserver.sh \
-           file://files/jackconnect.sh \
-           file://files/jackclient.sh \
+SRC_URI = "file://jackserver.sh \
+           file://jackconnect.sh \
+           file://jackclient.sh \
            "
 
 do_install() {
     install -d ${D}${bindir}
-    for f in ${WORKDIR}/files/*; do
+    for f in ${WORKDIR}/sources-unpack/*; do
         install -m 0755 $f ${D}${bindir}/
     done
 }
