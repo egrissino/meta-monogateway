@@ -20,4 +20,4 @@ while ! (isHostConnected); do
     sleep 1
 done
 
-source ./jackconnect.sh
+source ./jackconnect
