@@ -9,8 +9,6 @@ SRC_URI = "file://files/jackserver.sh \
            file://files/jackclient.sh \
            "
 
-S = "${WORKDIR}"
-
 do_install() {
     install -d ${D}${bindir}
     for f in ${WORKDIR}/files/*; do
