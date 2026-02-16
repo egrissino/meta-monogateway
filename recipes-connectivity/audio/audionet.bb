@@ -4,9 +4,9 @@ LIC_FILES_CHKSUM = "file://COPYING;md5=b3b732d1349633a53e69356607fd2d6c"
 
 DEPENDS += "jack"
 
-SRC_URI = "file://jackserver.sh \
-           file://jackconnect.sh \
-           file://jackclient.sh \
+SRC_URI = "file://files/jackserver.sh \
+           file://files/jackconnect.sh \
+           file://files/jackclient.sh \
            "
 
 do_install() {
