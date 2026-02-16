@@ -19,6 +19,7 @@ IMAGE_INSTALL:append = " openssh screen apt python3 python3-pip python3-venv"
 PACKAGE_EXCLUDE:remove = "alsa-utils busybox pulseaudio"
 IMAGE_INSTALL:append = " alsa-utils busybox pulseaudio"
 IMAGE_INSTALL:append = " libjack jack-server jack-utils"
+IMAGE_INSTALL:append = " containerd docker docker-cli"
 
 # Dev
 IMAGE_INSTALL:append = " nano iputils"
