@@ -7,6 +7,7 @@ DEPENDS += "jack"
 SRC_URI = "file://jackserver.sh \
            file://jackconnect.sh \
            file://jackclient.sh \
+           file://COPYING.MIT \
            "
 
 do_install() {
