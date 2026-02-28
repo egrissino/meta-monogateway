@@ -10,6 +10,23 @@ EXTRA_USERS_PARAMS = "usermod -p '' root;"
 # Enable package management for runtime updates
 IMAGE_FEATURES = "package-management"
 
+IMAGE_FEATURES:append = " allow-empty-password allow-root-login empty-root-password"
+
+# Utils
+IMAGE_INSTALL:append = " openssh screen apt python3 python3-pip python3-venv"
+
+# Audio
+PACKAGE_EXCLUDE:remove = "alsa-utils busybox pulseaudio"
+IMAGE_INSTALL:append = " alsa-utils busybox pulseaudio"
+IMAGE_INSTALL:append = " libjack jack-server jack-utils"
+IMAGE_INSTALL:append = " containerd docker docker-compose"
+
+# Audio bridge application scripts
+IMAGE_INSTALL:append = " audionet"
+
+# Dev
+IMAGE_INSTALL:append = " nano iputils"
+
 # Disable initramfs bundling (defined in machine.conf)
 INITRAMFS_IMAGE_BUNDLE = "0"
 
@@ -134,13 +151,6 @@ IMAGE_INSTALL:append = " \
     "
 
 IMAGE_LINGUAS = ""
-
-# Explicitly exclude unwanted packages
-PACKAGE_EXCLUDE = "\
-    alsa-utils \
-    busybox \
-    pulseaudio \
-    "
 
 # Generate ext4 filesystem for eMMC
 IMAGE_FSTYPES = "ext4"
